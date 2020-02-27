@@ -1,4 +1,4 @@
-package www.plgp.com.pglp_3.;
+package www.plgp.com.pglp_3;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
