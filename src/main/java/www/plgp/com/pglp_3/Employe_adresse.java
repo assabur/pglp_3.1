@@ -2,12 +2,11 @@ package www.plgp.com.pglp_3;
 
 public class Employe_adresse 
 {
- private  String nom;
- private  String adresse;
- public void afficheCoordonnees()
+
+ public void afficheCoordonnees(Employe e)
  {
 	 
-	 System.out.println(nom+", "+adresse);
+	 System.out.println(e.toString());
  }
  
  
