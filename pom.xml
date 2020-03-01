@@ -10,28 +10,29 @@
   <name>pglp_3.1</name>
   <url>http://maven.apache.org</url>
 
-
-  <properties>
-  
-  <!-- Encodage UTF-8  -->
+<properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    
-    <!-- Projet compile avec java dans sa version 1.8-->
-    
-    <maven.compiler.source>1.8</maven.compiler.source>
-    
-    <maven.compiler.target>1.8</maven.compiler.target>
-    
- 	<javadoc.opts>-Xdoclint:none</javadoc.opts>
-  
-</properties>
-
-
+    <maven.compiler.source>1.7</maven.compiler.source>
+    <maven.compiler.target>1.7</maven.compiler.target>
+  </properties>
 
   <dependencies>
   
   <!-- Gestion des dependances -->
+  <dependency>
+  <!-- Insertion de la dependance findbug -->
+  <!-- Utilisons findBugs qui permet de rechercher des bugs dans les programmes Java. Il est basé sur le concept de modèles de bugs -->
 
+<!-- https://mvnrepository.com/artifact/org.codehaus.mojo/findbugs-maven-plugin -->
+	
+  
+        <groupId>org.codehaus.mojo</groupId>
+        
+        <artifactId>findbugs-maven-plugin</artifactId>
+        
+        <version>3.0.4</version>
+        
+  </dependency>
   
   <!-- Insertion de la dependance hamcrest -->
   <dependency>
@@ -46,21 +47,7 @@
     
 </dependency>
   
-  <!-- Insertion de la dependance javadoc -->
-	<dependency>
-	  
-	  <groupId>org.apache.maven.plugins</groupId>
-	  
-	  <artifactId>maven-javadoc-plugin</artifactId>
-	  
-	  <version>3.1.1</version>
-	  
-	  <type>maven-plugin</type>
-	  
-	</dependency>
-	  	 
-	
-	 <!-- Insertion de la dependence doxia-site-render -->
+ 	 <!-- Insertion de la dependence doxia-site-render -->
 	 
   <dependency>
   <!-- Utilisons Doxia qui est un cadre de génération de contenu fournissant des techniques puissantes pour générer du contenu statique et dynamique -->
@@ -89,6 +76,16 @@
 		    </dependency>
 	
 
+  <dependency>
+  <!-- Insertion de la dependance findbug -->
+  
+        <groupId>org.codehaus.mojo</groupId>
+        
+        <artifactId>findbugs-maven-plugin</artifactId>
+        
+        <version>3.0.4</version>
+        
+  </dependency>	
 	</dependencies>
 	
 
@@ -123,40 +120,21 @@
             	<artifactId>maven-site-plugin</artifactId>
             	<version>3.7</version>
         	</plugin>
-		
-		    <plugin>
-		   <groupId>org.apache.maven.plugins</groupId>
-		   <artifactId>maven-checkstyle-plugin</artifactId>
-		   <version>3.1.1</version>
-		   <configuration>
-		     <configLocation>checkstyle.xml</configLocation>
-		     <encoding>UTF-8</encoding>
-		     <consoleOutput>true</consoleOutput>
-		     <failsOnError>true</failsOnError>
-		     <linkXRef>false</linkXRef>
-		   </configuration>
-		
-		 </plugin>
-    
-    
-    	     <plugin>
-		       
-		        <groupId>org.apache.maven.plugins</groupId>
-		        
-		        <artifactId>maven-javadoc-plugin</artifactId>
-		        
-		        <version>3.1.1</version>
-		        
-		        <configuration>
-		          
-		          <show>public</show>
-		          
-		         <failOnError>false</failOnError>
-		          
-		        </configuration>
-		        
-		      </plugin>
 
+    
+     <!--  Plugin de gestion de rapport d'erreur findbugs-->
+    	 	<plugin>
+        		<groupId>org.codehaus.mojo</groupId>
+            	<artifactId>findbugs-maven-plugin</artifactId>
+	            <version>3.0.4</version> <!--have modified this -->
+    	        <configuration>
+        	    	<xmlOutput>true</xmlOutput>
+            	      
+                	<xmlOutputDirectory>target/site</xmlOutputDirectory>
+	             </configuration>
+    	     </plugin>
+    	     
+ 	
 		</plugins>
  
  </build>
@@ -186,10 +164,52 @@
                 <version>2.9</version>
                 
 		  </plugin>   
+
+        <!-- jar avec dependance    -->
+
+    
+     <!--  Plugin de gestion de rapport d'erreur findbugs-->
+     <plugin>
+              <groupId>org.codehaus.mojo</groupId>
+              
+              <artifactId>findbugs-maven-plugin</artifactId>
+              
+              <version>3.0.4</version> <!--have modified this -->
+              
+              <configuration>
+              
+                  <xmlOutput>true</xmlOutput>
+                  
+                  <!-- Optional directory to put findbugs xdoc xml report -->
+                  
+                  <xmlOutputDirectory>target/site</xmlOutputDirectory>
+                  
+              </configuration>
+              
+         </plugin>
          
-  
+         
+         <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-checkstyle-plugin</artifactId>
+          <version>3.1.0</version>
+          <reportSets>
+            <reportSet>
+              <reports>
+                <report>checkstyle</report>
+              </reports>
+            </reportSet>
+          </reportSets>
+        </plugin>
+          <plugin>
+                <groupId>com.github.spotbugs</groupId>
+                <artifactId>spotbugs-maven-plugin</artifactId>
+            </plugin>
  
       </plugins>
       
     </reporting>
+	 
+
+
 </project>

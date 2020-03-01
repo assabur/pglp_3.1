@@ -29,7 +29,9 @@ public class Employe_salaire_Test {
 	public void test_salaire() {
 
 		if(emp.calculsalaire()==1200)
-	    assertTrue(true);
+	      assertTrue(true);
+		
+		//assertEquals(expected, actual);
 	}
 
 }
